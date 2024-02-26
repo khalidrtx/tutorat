@@ -64,7 +64,7 @@ public class SecurityConfig {
 	
 	@Bean
 	JwtDecoder jwtEDecoder() {
-	    SecretKey secretKeySpec=new SecretKeySpec(secretKey.getBytes(),"RSA");
+	    SecretKeySpec secretKeySpec=new SecretKeySpec(secretKey.getBytes(),"RSA");
 		return NimbusJwtDecoder.withSecretKey(secretKeySpec).macAlgorithm(MacAlgorithm.HS512).build();
 	}
 	
@@ -74,12 +74,14 @@ public class SecurityConfig {
 		
 	}
 	
+    @Bean
 	public AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
 		DaoAuthenticationProvider daoAuthenticationProvider= new DaoAuthenticationProvider();
 		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
 		daoAuthenticationProvider.setUserDetailsService(userDetailsService);
 		return new ProviderManager(daoAuthenticationProvider);
-		}
+		
+	}
 	
 	
 	
