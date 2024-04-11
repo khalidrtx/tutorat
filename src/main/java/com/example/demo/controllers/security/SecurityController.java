@@ -33,6 +33,10 @@ public class SecurityController {
 	public Authentication authentication(Authentication authentication) {
 		return authentication;
 	}
+	@GetMapping("/login")
+	public String login() {
+		return "page login";
+	}
 @PostMapping("/login")
 public Map<String,String> login(String username ,String password){
 		Authentication authentication=authenticationManager.authenticate( 

@@ -40,7 +40,7 @@ public class SecurityConfig {
 	public InMemoryUserDetailsManager inMemoryUserDetailsManager() {
 		PasswordEncoder passwordEncoder=passwordEncoder();
 		return new InMemoryUserDetailsManager(
-				User.withUsername("khalid").password(passwordEncoder.encode("KHALID")).authorities("KHALID").build(),
+				User.withUsername("khalid").password(passwordEncoder.encode("KHALID")).authorities("ADMIN").build(),
 				User.withUsername("ayoub").password(passwordEncoder.encode("KHALID")).authorities("USER").build()
 			);
 				
@@ -51,6 +51,7 @@ public class SecurityConfig {
 		return httpSecurity
 				.sessionManagement(sm->sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.csrf(csrf->csrf.disable())
+				.authorizeHttpRequests(a->a.requestMatchers("/auth/login/**").permitAll())
 				.authorizeHttpRequests(ar->ar.anyRequest().authenticated())
 				//.httpBasic(Customizer.withDefaults())
 				.oauth2ResourceServer(oa->oa.jwt(Customizer.withDefaults()))
